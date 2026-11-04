@@ -25,6 +25,12 @@ export default function TeacherLessonsPage() {
           Upload a lesson
         </Link>
       </div>
+      <p className="mt-6 text-center text-sm text-muted-foreground">
+        New to ilm.io?{' '}
+        <Link href="/about" className="font-medium text-primary underline underline-offset-4">
+          See how it works
+        </Link>
+      </p>
     </div>
   );
 }

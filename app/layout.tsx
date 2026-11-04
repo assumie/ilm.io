@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Lexend, Atkinson_Hyperlegible } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { AppShell } from '@/components/app-shell';
+import { PreferencesProvider } from '@/lib/preferences';
 
 const lexend = Lexend({
   subsets: ['latin'],
@@ -47,7 +48,9 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased">
         <ThemeProvider defaultTheme="light">
-          <AppShell>{children}</AppShell>
+          <PreferencesProvider>
+            <AppShell>{children}</AppShell>
+          </PreferencesProvider>
         </ThemeProvider>
       </body>
     </html>

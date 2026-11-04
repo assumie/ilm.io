@@ -10,13 +10,15 @@ interface PDFParseResult {
   numpages?: number;
 }
 
-let pdfParse: ((buffer: Buffer) => Promise<PDFParseResult>) | null = null;
+type PdfParseFn = (buffer: Buffer) => Promise<PDFParseResult>;
 
-async function loadPdfParse(): Promise<typeof pdfParse> {
+let pdfParse: PdfParseFn | null = null;
+
+async function loadPdfParse(): Promise<PdfParseFn | null> {
   if (pdfParse) return pdfParse;
   try {
     const mod = await import('pdf-parse');
-    pdfParse = mod.default as typeof pdfParse;
+    pdfParse = mod.default as PdfParseFn;
     return pdfParse;
   } catch {
     return null;

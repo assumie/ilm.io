@@ -30,7 +30,7 @@
     --secondary-foreground: 30 15% 25%;
 
     --muted: 36 18% 85%;
-    --muted-foreground: 30 10% 42%;
+    --muted-foreground: 30 10% 34%;
 
     --destructive: 0 72% 48%;
     --destructive-foreground: 36 31% 96%;
@@ -78,7 +78,7 @@
     --secondary-foreground: 36 25% 88%;
 
     --muted: 30 8% 22%;
-    --muted-foreground: 36 15% 62%;
+    --muted-foreground: 36 15% 72%;
 
     --destructive: 0 60% 50%;
     --destructive-foreground: 36 25% 88%;
@@ -105,9 +105,15 @@
   * {
     @apply border-border;
   }
+  html {
+    /* Comfortable base size: 17px body text (most text-sm becomes ~15px). */
+    font-size: 106.25%;
+  }
+  html[data-text-size='large'] { font-size: 118.75%; }
+  html[data-text-size='xlarge'] { font-size: 131.25%; }
   body {
     @apply bg-background text-foreground font-body;
-    line-height: 1.6;
+    line-height: 1.65;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-serif;
@@ -143,9 +149,56 @@
   outline-offset: 2px;
 }
 
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
+/* ---------- Comfort settings (see lib/preferences.tsx) ---------- */
+
+/* Dyslexia-friendly reading font everywhere (headings keep their shape). */
+html.reading-font body {
+  font-family: var(--font-atkinson), Verdana, system-ui, sans-serif;
+  letter-spacing: 0.02em;
+}
+
+/* Extra spacing: more room between lines, words and letters. */
+html.extra-spacing body {
+  line-height: 1.95;
+  word-spacing: 0.12em;
+  letter-spacing: 0.03em;
+}
+
+/* Calm mode: no motion, no shadows, no colour accents, quieter surfaces. */
+html.calm {
+  --accent: var(--primary);
+  --accent-light: var(--primary-light);
+  --chart-2: var(--primary);
+  --chart-3: var(--primary-light);
+  --chart-4: var(--primary-dark);
+  --chart-5: var(--muted-foreground);
+}
+html.calm *,
+html.calm *::before,
+html.calm *::after {
+  animation: none !important;
+  transition: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+/* Respect the device's "reduce motion" setting for everyone. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Smooth scrolling only when motion is welcome. */
+@media (prefers-reduced-motion: no-preference) {
+  html:not(.calm) {
+    scroll-behavior: smooth;
+  }
 }
 
 /* Reduced motion support */
