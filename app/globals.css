@@ -1,0 +1,161 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Cream background #F5EFE7 → HSL */
+    --background: 36 31% 93%;
+    --foreground: 30 15% 20%;
+
+    /* Cards: slightly lighter cream */
+    --card: 36 35% 96%;
+    --card-foreground: 30 15% 20%;
+
+    --popover: 36 35% 96%;
+    --popover-foreground: 30 15% 20%;
+
+    /* Sage primary #5E7F68 → HSL */
+    --primary: 146 15% 43%;
+    --primary-foreground: 36 31% 96%;
+    --primary-light: 146 18% 55%;
+    --primary-dark: 146 18% 33%;
+
+    /* Dusty rose accent #B0685A → HSL */
+    --accent: 11 35% 52%;
+    --accent-foreground: 36 31% 96%;
+    --accent-light: 11 40% 62%;
+
+    --secondary: 36 20% 88%;
+    --secondary-foreground: 30 15% 25%;
+
+    --muted: 36 18% 85%;
+    --muted-foreground: 30 10% 42%;
+
+    --destructive: 0 72% 48%;
+    --destructive-foreground: 36 31% 96%;
+
+    --success: 152 40% 42%;
+    --success-foreground: 36 31% 96%;
+
+    --warning: 35 80% 52%;
+    --warning-foreground: 30 15% 20%;
+
+    --border: 36 18% 82%;
+    --input: 36 18% 80%;
+    --ring: 146 15% 43%;
+
+    --chart-1: 146 15% 43%;
+    --chart-2: 11 35% 52%;
+    --chart-3: 35 80% 52%;
+    --chart-4: 200 45% 48%;
+    --chart-5: 280 35% 55%;
+
+    --radius: 0.625rem;
+  }
+
+  .dark {
+    /* Dark mode: deep warm charcoal */
+    --background: 30 12% 10%;
+    --foreground: 36 25% 88%;
+
+    --card: 30 10% 14%;
+    --card-foreground: 36 25% 88%;
+
+    --popover: 30 10% 14%;
+    --popover-foreground: 36 25% 88%;
+
+    --primary: 146 15% 48%;
+    --primary-foreground: 30 12% 10%;
+    --primary-light: 146 18% 58%;
+    --primary-dark: 146 18% 38%;
+
+    --accent: 11 35% 55%;
+    --accent-foreground: 30 12% 10%;
+    --accent-light: 11 40% 62%;
+
+    --secondary: 30 8% 20%;
+    --secondary-foreground: 36 25% 88%;
+
+    --muted: 30 8% 22%;
+    --muted-foreground: 36 15% 62%;
+
+    --destructive: 0 60% 50%;
+    --destructive-foreground: 36 25% 88%;
+
+    --success: 152 35% 45%;
+    --success-foreground: 30 12% 10%;
+
+    --warning: 35 70% 55%;
+    --warning-foreground: 30 12% 10%;
+
+    --border: 30 8% 24%;
+    --input: 30 8% 22%;
+    --ring: 146 15% 48%;
+
+    --chart-1: 146 18% 50%;
+    --chart-2: 11 40% 58%;
+    --chart-3: 35 75% 58%;
+    --chart-4: 200 50% 55%;
+    --chart-5: 280 40% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body;
+    line-height: 1.6;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+    line-height: 1.25;
+  }
+}
+
+@layer utilities {
+  .font-accessible {
+    font-family: var(--font-atkinson), system-ui, sans-serif;
+    letter-spacing: 0.01em;
+  }
+  .tap-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  .reading-ruler {
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent calc(var(--ruler-pos, 40%) - 1.5em),
+      hsl(var(--accent) / 0.12) calc(var(--ruler-pos, 40%) - 1.5em),
+      hsl(var(--accent) / 0.12) calc(var(--ruler-pos, 40%) + 0.5em),
+      transparent calc(var(--ruler-pos, 40%) + 0.5em),
+      transparent 100%
+    );
+  }
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
