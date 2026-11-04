@@ -71,7 +71,7 @@ export default function AboutPage() {
   return (
     <div className="mx-auto max-w-4xl">
       <section className="rounded-2xl border border-border bg-card px-6 py-12 sm:px-10">
-        <p className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
+        <p className="text-sm font-medium text-muted-foreground">
           AI teaching assistant for Malaysian classrooms
         </p>
         <h1 className="mt-3 font-serif text-4xl leading-tight text-foreground sm:text-5xl">

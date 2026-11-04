@@ -119,7 +119,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
         <main
           className={cn(
-            'min-h-[calc(100vh-4rem)] flex-1 px-4 pt-6 sm:px-6',
+            'min-h-[calc(100vh-4rem)] min-w-0 flex-1 px-4 pt-6 sm:px-6',
             isTeacher ? 'pb-28 lg:pb-10' : 'pb-10'
           )}
         >

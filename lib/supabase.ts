@@ -1,15 +1,24 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL as string;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error(
-    'Missing Supabase environment variables. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.'
-  );
+/** True when the Supabase environment variables are set. */
+export const hasSupabase = Boolean(supabaseUrl && supabaseAnonKey);
+
+/**
+ * Shared client. When Supabase is not configured the app still runs in
+ * demo mode (built-in sample lesson); calls through this client then fail
+ * and API routes return a clear error instead of crashing the whole site.
+ */
+export const supabase: SupabaseClient = hasSupabase
+  ? createClient(supabaseUrl as string, supabaseAnonKey as string)
+  : (null as unknown as SupabaseClient);
+
+/** Null-safe accessor for new code. */
+export function getSupabase(): SupabaseClient | null {
+  return hasSupabase ? supabase : null;
 }
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export type LessonOutputFormat =
   | 'focus_slides'
